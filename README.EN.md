@@ -1,4 +1,4 @@
-# Project work: "Mesto" ("Place")
+# Project work: "Mesto (React JS App)"
 
 ## Created as part of a study at [Yandex.Praktikum](https://praktikum.yandex.com/) on a web development course ["Web Developer"](https://practicum.yandex.com/web/)
 
