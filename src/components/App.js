@@ -8,10 +8,37 @@ import '../index.css';
 
 
 function App() {
+
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+
+  function handleEditProfilePopupOpen() {
+    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  function handleAddPlacePopupOpen() {
+    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
+  function handleEditAvatarPopupOpen() {
+    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function closeAllPopups() {
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+    setEditAvatarPopupOpen(false);
+  }
+
   return (
     <>
       <Header />
-      <Main />
+      <Main
+        onEditProfile={handleEditProfilePopupOpen}
+        onAddPlace={handleAddPlacePopupOpen}
+        onEditAvatar={handleEditAvatarPopupOpen}
+      />
       <Footer />
       <PopupWithForm
         name="profile"
@@ -25,6 +52,8 @@ function App() {
           </>
         }
         buttonText="Сохранить"
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       />
       <PopupWithForm
         name="photo"
@@ -38,6 +67,8 @@ function App() {
           </>
         }
         buttonText="Создать"
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       />
       <PopupWithForm
         name="confirm"
@@ -58,6 +89,8 @@ function App() {
           </>
         }
         buttonText="Сохранить"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       />
       <ImagePopup />
       <template id="photos-element">
