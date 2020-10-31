@@ -1,5 +1,11 @@
 {
   "name": "mesto-react",
+  "author": {
+    "name": "Melnikov Aleksei",
+    "email": "meln.a.a@yandex.ru",
+    "url": "https://github.com/MelnikovAleksei"
+  },
+  "description": "Mesto is an interactive page where users can share photos",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
