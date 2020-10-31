@@ -3,6 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 import '../index.css';
 
 
@@ -58,15 +59,7 @@ function App() {
         }
         buttonText="Сохранить"
       />
-      <div className="popup popup-photos">
-        <div className="popup__container popup-photos__container">
-          <figure className="photos__figure popup-photos__figure">
-            <img alt="" className="popup-photos__image" />
-            <figcaption className="popup-photos__figcaption"></figcaption>
-          </figure>
-          <button className="popup__close-button popup-photos__close-button" aria-label="закрыть просмотр фотографии"></button>
-        </div>
-      </div>
+      <ImagePopup />
       <template id="photos-element">
         <li className="photos__card">
           <figure className="photos__figure">
