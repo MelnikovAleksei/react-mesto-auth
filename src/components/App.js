@@ -51,55 +51,109 @@ function App() {
       <PopupWithForm
         name="profile"
         title="Редактировать профиль"
-        children={
-          <>
-            <input className="form__input" type="text" id="profile-name" aria-label="имя" placeholder="Имя" name="name" required minLength="2" maxLength="40" />
-            <span className='form__input-error' id='profile-name-error'></span>
-            <input className="form__input" type="text" id="profile-about" aria-label="подпись" placeholder="Подпись" name="about" required minLength="2" maxLength="200" />
-            <span className='form__input-error' id='profile-about-error'></span>
-          </>
-        }
         buttonText="Сохранить"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
-      />
+      >
+        <>
+          <input
+            className="form__input"
+            type="text"
+            id="profile-name"
+            aria-label="имя"
+            placeholder="Имя"
+            name="name"
+            required
+            minLength="2"
+            maxLength="40"
+          />
+          <span
+            className='form__input-error'
+            id='profile-name-error'>
+          </span>
+          <input
+            className="form__input"
+            type="text"
+            id="profile-about"
+            aria-label="подпись"
+            placeholder="Подпись"
+            name="about"
+            required
+            minLength="2"
+            maxLength="200" />
+          <span
+            className='form__input-error'
+            id='profile-about-error'>
+          </span>
+        </>
+      </PopupWithForm>
       <PopupWithForm
         name="photo"
         title="Новое место"
-        children={
-          <>
-            <input className="form__input" type="text" id="photo-title" aria-label="подпись" placeholder="Название" name="title" required minLength="1" maxLength="30" />
-            <span className='form__input-error' id='photo-title-error' role="status" aria-live="polite"></span>
-            <input className="form__input" type="url" id="photo-url" aria-label="ссылка" placeholder="Ссылка на картинку" name="url" required />
-            <span className='form__input-error' id='photo-url-error' role="status" aria-live="polite"></span>
-          </>
-        }
         buttonText="Создать"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-      />
+      >
+        <>
+          <input
+            className="form__input"
+            type="text"
+            id="photo-title"
+            aria-label="подпись"
+            placeholder="Название"
+            name="title"
+            required
+            minLength="1"
+            maxLength="30"
+          />
+          <span
+            className='form__input-error'
+            id='photo-title-error'
+            role="status"
+            aria-live="polite">
+          </span>
+          <input
+            className="form__input"
+            type="url"
+            id="photo-url"
+            aria-label="ссылка"
+            placeholder="Ссылка на картинку"
+            name="url"
+            required
+          />
+          <span className='form__input-error' id='photo-url-error' role="status" aria-live="polite"></span>
+        </>
+      </PopupWithForm>
       <PopupWithForm
         name="confirm"
         title="Вы уверены?"
-        children={
-          <>
-          </>
-        }
         buttonText="Да"
       />
       <PopupWithForm
         name="avatar"
         title="Обновить аватар"
-        children={
-          <>
-            <input className="form__input" type="url" id="avatar-url" aria-label="ссылка" placeholder="Ссылка на картинку" name="url" required />
-            <span className='form__input-error' id='avatar-url-error' role="status" aria-live="polite"></span>
-          </>
-        }
         buttonText="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-      />
+      >
+        <>
+          <input
+            className="form__input"
+            type="url"
+            id="avatar-url"
+            aria-label="ссылка"
+            placeholder="Ссылка на картинку"
+            name="url"
+            required
+          />
+          <span
+            className='form__input-error'
+            id='avatar-url-error'
+            role="status"
+            aria-live="polite">
+          </span>
+        </>
+      </PopupWithForm>
       <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}

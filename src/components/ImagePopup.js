@@ -8,7 +8,7 @@ function ImagePopup(props) {
           <img alt={`Фотография ${props.card.name}`} src={`${props.card.link}`} className="popup-photos__image" />
           <figcaption className="popup-photos__figcaption">{props.card.name}</figcaption>
         </figure>
-        <button onClick={props.onClose} className="popup__close-button" aria-label="закрыть просмотр фотографии"></button>
+        <button onClick={props.onClose} className="popup__close-button" aria-label="закрыть просмотр фотографии" />
       </div>
     </div>
   )

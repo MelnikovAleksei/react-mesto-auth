@@ -12,9 +12,9 @@ function Card(props) {
         <img onClick={handleCardClick} alt={`Фотография ${props.card.name}`} src={props.card.link} className="photos__image" />
         <figcaption className="photos__figcaption">{props.card.name}</figcaption>
       </figure>
-      <button className="photos__delete-button" aria-label="удалить фотографию"></button>
+      <button className="photos__delete-button" aria-label="удалить фотографию" />
       <div className="photos__like-container">
-        <button className="photos__like-button" aria-label="поставить лайк"></button>
+        <button className="photos__like-button" aria-label="поставить лайк" />
         <span className="photos__like-count">{props.card.likes.length}</span>
       </div>
     </li>

@@ -34,8 +34,8 @@ function Main(props) {
               <button
                 className="profile__avatar-edit-button"
                 aria-label="открыть форму обновления аватара профиля"
-                onClick={props.onEditAvatar}>
-              </button>
+                onClick={props.onEditAvatar}
+              />
             </div>
             <div className="profile__bio">
               <div className="profile__info">
@@ -45,15 +45,15 @@ function Main(props) {
               <button
                 className="profile__edit-button button-open-form"
                 aria-label="редактировать профиль"
-                onClick={props.onEditProfile}>
-              </button>
+                onClick={props.onEditProfile}
+              />
             </div>
           </div>
           <button
             className="profile__add-button button-open-form"
             aria-label="добавить фотографии"
-            onClick={props.onAddPlace}>
-          </button>
+            onClick={props.onAddPlace}
+          />
         </section>
         <section className="photos">
           <ul className="photos__list">
