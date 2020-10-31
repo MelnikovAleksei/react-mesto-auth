@@ -1,38 +1,16 @@
 import React from 'react';
-import './index.css';
-import logo from './images/logo/mesto-logo.svg';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import '../index.css';
+
 
 function App() {
   return (
     <>
-      <header className="header">
-        <img className="header__logo" src={logo} alt="логотип сайта" />
-      </header>
-      <main>
-        <section className="profile">
-          <div className="profile__container-info">
-            <div className="profile__container-avatar">
-              <img alt="" className="profile__avatar" />
-              <button className="profile__avatar-edit-button" aria-label="открыть форму обновления аватара профиля"></button>
-            </div>
-            <div className="profile__bio">
-              <div className="profile__info">
-                <h1 className="profile__name"></h1>
-                <p className="profile__caption"></p>
-              </div>
-              <button className="profile__edit-button button-open-form" aria-label="редактировать профиль"></button>
-            </div>
-          </div>
-          <button className="profile__add-button button-open-form" aria-label="добавить фотографии"></button>
-        </section>
-        <section className="photos">
-          <ul className="photos__list">
-          </ul>
-        </section>
-      </main>
-      <footer className="footer">
-        <p className="footer__author">&copy; Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
       <div className="popup popup-edit">
         <div className="popup__container">
           <form className="form edit-form" name="info" noValidate>
