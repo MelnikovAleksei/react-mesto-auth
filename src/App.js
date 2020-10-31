@@ -1,8 +1,12 @@
+import React from 'react';
+import './index.css';
+import logo from './images/logo/mesto-logo.svg';
+
 function App() {
   return (
     <>
       <header className="header">
-        <img className="header__logo" src="./images/mesto-logo.svg" alt="логотип сайта" />
+        <img className="header__logo" src={logo} alt="логотип сайта" />
       </header>
       <main>
         <section className="profile">
