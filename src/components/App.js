@@ -13,6 +13,8 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
 
+  const [selectedCard, setSelectedCard] = React.useState('');
+
   function handleEditProfilePopupOpen() {
     setEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
@@ -29,6 +31,11 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
+    setSelectedCard('')
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card)
   }
 
   return (
@@ -38,6 +45,7 @@ function App() {
         onEditProfile={handleEditProfilePopupOpen}
         onAddPlace={handleAddPlacePopupOpen}
         onEditAvatar={handleEditAvatarPopupOpen}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm
@@ -92,20 +100,10 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       />
-      <ImagePopup />
-      <template id="photos-element">
-        <li className="photos__card">
-          <figure className="photos__figure">
-            <img alt="" className="photos__image" />
-            <figcaption className="photos__figcaption"></figcaption>
-          </figure>
-          <button className="photos__delete-button" aria-label="удалить фотографию"></button>
-          <div className="photos__like-container">
-            <button className="photos__like-button" aria-label="поставить лайк"></button>
-            <span className="photos__like-count">0</span>
-          </div>
-        </li>
-      </template>
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
+      />
     </>
   );
 }
