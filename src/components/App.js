@@ -2,9 +2,12 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import EditProfilePopup from './EditProfilePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import '../index.css';
+import api from '../utils/api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
 function App() {
@@ -14,6 +17,31 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
 
   const [selectedCard, setSelectedCard] = React.useState('');
+
+  const [currentUser, setCurrentUser] = React.useState('');
+
+  React.useEffect(() => {
+    api.getUserInfo()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  },[])
+
+  function handleUpdateUser(data) {
+    api.setUserInfo(data)
+      .then(
+        (data) => {
+          setCurrentUser(data);
+          closeAllPopups();
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+  }
 
   function handleEditProfilePopupOpen() {
     setEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -39,7 +67,7 @@ function App() {
   }
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Main
         onEditProfile={handleEditProfilePopupOpen}
@@ -48,20 +76,10 @@ function App() {
         onCardClick={handleCardClick}
       />
       <Footer />
-      <PopupWithForm
-        name="profile"
-        title="Редактировать профиль"
-        children={
-          <>
-            <input className="form__input" type="text" id="profile-name" aria-label="имя" placeholder="Имя" name="name" required minLength="2" maxLength="40" />
-            <span className='form__input-error' id='profile-name-error'></span>
-            <input className="form__input" type="text" id="profile-about" aria-label="подпись" placeholder="Подпись" name="about" required minLength="2" maxLength="200" />
-            <span className='form__input-error' id='profile-about-error'></span>
-          </>
-        }
-        buttonText="Сохранить"
+      <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
       />
       <PopupWithForm
         name="photo"
@@ -90,21 +108,18 @@ function App() {
       <PopupWithForm
         name="avatar"
         title="Обновить аватар"
-        children={
-          <>
-            <input className="form__input" type="url" id="avatar-url" aria-label="ссылка" placeholder="Ссылка на картинку" name="url" required />
-            <span className='form__input-error' id='avatar-url-error' role="status" aria-live="polite"></span>
-          </>
-        }
         buttonText="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-      />
+      >
+        <input className="form__input" type="url" id="avatar-url" aria-label="ссылка" placeholder="Ссылка на картинку" name="url" required />
+        <span className='form__input-error' id='avatar-url-error' role="status" aria-live="polite"></span>
+      </PopupWithForm>
       <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}
       />
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 

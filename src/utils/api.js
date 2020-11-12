@@ -21,22 +21,30 @@ class Api {
     }).then(this._handleOriginalResponse)
   }
 
-  deleteLike(data) {
-    return fetch(`${this._url}/cards/likes/${data._id}`, {
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return this.deleteLike(id);
+    } else {
+      return this.setLike(id);
+    }
+  }
+
+  deleteLike(id) {
+    return fetch(`${this._url}/cards/likes/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then(this._handleOriginalResponse)
   }
 
-  setLike(data) {
-    return fetch(`${this._url}/cards/likes/${data._id}`, {
+  setLike(id) {
+    return fetch(`${this._url}/cards/likes/${id}`, {
       method: 'PUT',
       headers: this._headers,
     }).then(this._handleOriginalResponse)
   }
 
-  deleteCard(data) {
-    return fetch(`${this._url}/cards/${data._id}`, {
+  deleteCard(id) {
+    return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers
     }).then(this._handleOriginalResponse)

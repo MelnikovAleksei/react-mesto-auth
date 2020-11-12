@@ -1,9 +1,26 @@
 import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card(props) {
 
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const isOwnCard = props.card.owner._id === currentUser._id;
+  const isLiked = props.card.likes.some(i => i._id === currentUser._id);
+
+  const cardDeleteButtonClassName = `${isOwnCard ? 'photos__delete-button photos__delete-button_visible' : 'photos__delete-button photos__delete-button_hidden'}`
+  const cardLikeButtonClassName = `${isLiked ? 'photos__like-button photos__like-button_liked' : 'photos__like-button'}`
+
   function handleCardClick() {
-    props.onCardClick(props.card)
+    props.onCardClick(props.card);
+  }
+
+  function handleLikeClick() {
+    props.onCardLike(props.card)
+  }
+
+  function handleCardDelete() {
+    props.onCardDelete(props.card)
   }
 
   return (
@@ -12,9 +29,9 @@ function Card(props) {
         <img onClick={handleCardClick} alt={`Фотография ${props.card.name}`} src={props.card.link} className="photos__image" />
         <figcaption className="photos__figcaption">{props.card.name}</figcaption>
       </figure>
-      <button className="photos__delete-button" aria-label="удалить фотографию"></button>
+      <button onClick={handleCardDelete} className={cardDeleteButtonClassName} aria-label="удалить фотографию"></button>
       <div className="photos__like-container">
-        <button className="photos__like-button" aria-label="поставить лайк"></button>
+        <button onClick={handleLikeClick} className={cardLikeButtonClassName} aria-label="поставить лайк"></button>
         <span className="photos__like-count">{props.card.likes.length}</span>
       </div>
     </li>
