@@ -3,6 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import '../index.css';
@@ -29,6 +30,19 @@ function App() {
         console.log(err);
       })
   },[])
+
+  function handleUpdateAvatar(data) {
+    api.setUserAvatar(data)
+      .then(
+        (data) => {
+          setCurrentUser(data);
+          closeAllPopups();
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+  }
 
   function handleUpdateUser(data) {
     api.setUserInfo(data)
@@ -81,6 +95,11 @@ function App() {
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
       />
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+      />
       <PopupWithForm
         name="photo"
         title="Новое место"
@@ -105,16 +124,6 @@ function App() {
         }
         buttonText="Да"
       />
-      <PopupWithForm
-        name="avatar"
-        title="Обновить аватар"
-        buttonText="Сохранить"
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      >
-        <input className="form__input" type="url" id="avatar-url" aria-label="ссылка" placeholder="Ссылка на картинку" name="url" required />
-        <span className='form__input-error' id='avatar-url-error' role="status" aria-live="polite"></span>
-      </PopupWithForm>
       <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}
