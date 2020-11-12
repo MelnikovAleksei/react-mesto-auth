@@ -16,6 +16,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
 
   const [selectedCard, setSelectedCard] = React.useState({});
 
@@ -51,28 +52,18 @@ function App() {
   }
 
   React.useEffect(() => {
-    api.getCards()
+    api.getInitialData()
       .then(
         (data) => {
-          setCards(data);
+          const [userData, cardsData] = data;
+          setCards(cardsData);
+          setCurrentUser(userData);
         },
         (err) => {
           console.log(err);
         }
       )
   }, [])
-
-  React.useEffect(() => {
-    api.getUserInfo()
-      .then(
-        (data) => {
-          setCurrentUser(data);
-        },
-        (err) => {
-          console.log(err);
-        }
-      )
-  },[])
 
   function handleAddPlaceSubmit(data) {
     api.postCard(data)
@@ -129,11 +120,13 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
-    setSelectedCard({})
+    setImagePopupOpen(false);
+    setSelectedCard({});
   }
 
   function handleCardClick(card) {
-    setSelectedCard(card)
+    setSelectedCard(card);
+    setImagePopupOpen(true);
   }
 
   return (
@@ -170,6 +163,7 @@ function App() {
         buttonText="Да"
       />
       <ImagePopup
+        isOpen={isImagePopupOpen}
         card={selectedCard}
         onClose={closeAllPopups}
       />
