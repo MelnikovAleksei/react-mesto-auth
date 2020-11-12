@@ -6,7 +6,9 @@
 
 ## Description:
 
-"Mesto" is an interactive page where users can share photos. It was created as part of the passage of 4-10 sprints of the course. This work has been ported to the React framework. Link to [repository with the Pure JS version of the design work](https://github.com/MelnikovAleksei/mesto)
+"Mesto" is an interactive page where users can share photos. It was created as part of the passage of 4-10 sprints of the course. This work has been ported to the React framework. Link to [repository with the Pure JS version of the design work](https://github.com/MelnikovAleksei/mesto) 
+
+[Project work on GitHub Pages](https://melnikovaleksei.github.io/mesto-react/index.html) 
 
 ## Functionality:
 
