@@ -31,7 +31,6 @@
 * Parent/Child Components
 * State and Changing State (Hooks)
 
-
 ## Инструкция по установке:
 
 Клонировать репозиторий:
@@ -49,9 +48,9 @@ npm start
 
 ## Будущая доработка проекта будет включать в себя:
 
-* Добавление функционала редактирования пользовательских данных
-* Добавление функционала добавления новых карточек с фотографиями и возможности поставить им "лайк"
-* Добавление функционала live валидации форм
+* добавление валидации форм средствами библиотеки ["Formik"](https://formik.org/) 
+* создание индикаторов загрузки запросов 
+* создание всплывающего подтверждения удаления карточек с фотографиями
 
 ## Языки:
 
@@ -74,3 +73,4 @@ npm start
 * [Чеклист 8](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-8/index.html)
 * [Чеклист 9](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-9/index.html)
 * [Чеклист 10](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-10/index.html)
+* [Чеклист 11](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-11/index.html)
