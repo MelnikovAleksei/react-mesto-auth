@@ -48,9 +48,9 @@ npm start
 
 ## Future revisions of the project will include:
 
-* Add functionality for editing user data
-* Adding the functionality of adding new cards with photos and the ability to "like" them
-* Adding live form validation functionality
+* adding form validation using the ["Formik library"](https://formik.org/)
+* creating indicators of loading requests 
+* create a pop-up confirmation of deleting photo cards 
 
 ## Languages:
 
@@ -72,3 +72,4 @@ npm start
 * [Check list 8](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-8/index.html)
 * [Check list 9](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-9/index.html)
 * [Check list 10](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-10/index.html)
+* [Check list 11](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-11/index.html)
