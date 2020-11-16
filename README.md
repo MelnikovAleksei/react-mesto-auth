@@ -36,7 +36,7 @@
 Клонировать репозиторий:
 
 `
-git clone https://github.com/MelnikovAleksei/travel-from.git
+git clone https://github.com/MelnikovAleksei/mesto-react.git
 `
 
 В директории проекта запустить приложение в режиме разработки:
