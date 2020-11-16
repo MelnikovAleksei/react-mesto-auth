@@ -2,7 +2,7 @@
 
 ## Created as part of a study at [Yandex.Praktikum](https://praktikum.yandex.com/) on a web development course ["Web Developer"](https://practicum.yandex.com/web/)
 
-*Read this in other languages:* [RU](https://github.com/MelnikovAleksei/mesto/blob/master/README.md)
+*Read this in other languages:* [RU](https://github.com/MelnikovAleksei/mesto-react/blob/master/README.md)
 
 ## Description:
 
@@ -36,7 +36,7 @@
 Clone the repository:
 
 `
-git clone https://github.com/MelnikovAleksei/travel-from.git
+git clone https://github.com/MelnikovAleksei/mesto-react.git
 `
 
 Run the application in development mode in the project directory:
