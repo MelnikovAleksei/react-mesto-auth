@@ -1,68 +1,48 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-import addPlaceFormValidator from '../utils/addPlaceFormValidator';
+import { useInput } from '../hooks/useInput';
 
 function AddPlacePopup(props) {
-  const [formValues, setFormValues] = React.useState({
-    name: '',
-    link: ''
-  })
 
-  const handleInputChange = React.useCallback(
-    (evt) => {
-      const { name, value } = evt.target;
-      setFormValues((prevState) => ({ ...prevState, [name]: value }));
-    },
-    [setFormValues]
-  );
+  const {
+    value: name,
+    bind: bindName,
+    reset: resetName,
+    isValid: isValidName,
+    validationMessage: nameValidationMessage,
+    inputClassName: nameClassName,
+    errorClassName: nameErrorClassName
+  } = useInput('');
 
-  const [errors, setErrors] = React.useState({
-    name: {
-      required: true,
-      minLength: true,
-      maxLength: true,
-    },
-    link: {
-      required: true,
-      isInvalidUrl: true
-    }
-  });
+  const {
+    value: link,
+    bind: bindLink,
+    reset: resetLink,
+    isValid: isValidLink,
+    validationMessage: linkValidationMessage,
+    inputClassName: linkClassName,
+    errorClassName: linkErrorClassName
+  } = useInput('');
 
-  React.useEffect(() => {
-    const { name, link } = formValues;
+  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true)
 
-    const nameValidationResult = Object.keys(addPlaceFormValidator.name)
-      .map((errorKey) => {
-        const errorResult = addPlaceFormValidator.name[errorKey](name);
-        return { [errorKey]: errorResult };
-      })
-      .reduce((acc, elem) => ({...acc, ...elem}), {});
-
-    const linkValidationResult = Object.keys(addPlaceFormValidator.link)
-      .map((errorKey) => {
-        const errorResult = addPlaceFormValidator.link[errorKey](link);
-        return { [errorKey]: errorResult };
-      })
-      .reduce((acc, elem) => ({...acc, ...elem}), {});
-
-    setErrors({
-      name: nameValidationResult,
-      link: linkValidationResult
-    })
-
-  }, [formValues, setErrors])
+  const resetFields = () => {
+    resetName();
+    resetLink();
+  }
 
   function handleSubmit(evt) {
     evt.preventDefault(evt);
-    const { name, link } = formValues;
     props.onAddPlace({
       name: name,
       link: link,
-    })
+    }, resetFields)
   }
 
-  const { name, link } = formValues;
+  React.useEffect(() => {
+    setIsSubmitDisabled(!isValidName || !isValidLink)
+  }, [isValidName, isValidLink])
 
   return (
     <PopupWithForm
@@ -72,9 +52,10 @@ function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
+      isSubmitDisabled={isSubmitDisabled}
     >
       <input
-        className="form__input"
+        className={nameClassName}
         type="text"
         id="photo-title"
         aria-label="подпись"
@@ -83,22 +64,34 @@ function AddPlacePopup(props) {
         required
         minLength="1"
         maxLength="30"
-        value={name}
-        onChange={handleInputChange}
+        {...bindName}
       />
-      <span className='form__input-error' id='photo-title-error' role="status" aria-live="polite"></span>
+      <span
+        className={nameErrorClassName}
+        id='photo-title-error'
+        role="status"
+        aria-live="polite"
+      >
+        {nameValidationMessage}
+      </span>
       <input
-        className="form__input"
+        className={linkClassName}
         type="url"
         id="photo-url"
         aria-label="ссылка"
         placeholder="Ссылка на картинку"
         name="link"
         required
-        value={link}
-        onChange={handleInputChange}
+        {...bindLink}
       />
-      <span className='form__input-error' id='photo-url-error' role="status" aria-live="polite"></span>
+      <span
+        className={linkErrorClassName}
+        id='photo-url-error'
+        role="status"
+        aria-live="polite"
+      >
+        {linkValidationMessage}
+      </span>
     </PopupWithForm>
   )
 }

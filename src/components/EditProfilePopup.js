@@ -1,35 +1,52 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
+import { useInput } from '../hooks/useInput';
+
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const {
+    value: name,
+    bind: bindName,
+    reset: resetName,
+    isValid: isValidName,
+    validationMessage: nameValidationMessage,
+    inputClassName: nameClassName,
+    errorClassName: nameErrorClassName
+  } = useInput(currentUser.name);
 
-  function handleChangeName(evt) {
-    setName(evt.target.value);
-  }
+  const {
+    value: about,
+    bind: bindAbout,
+    reset: resetAbout,
+    isValid: isValidAbout,
+    validationMessage: aboutValidationMessage,
+    inputClassName: aboutClassName,
+    errorClassName: aboutErrorClassName
+  } = useInput(currentUser.about);
 
-  function hanldeChangeDescription(evt) {
-    setDescription(evt.target.value);
+  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true)
+
+  const resetFields = () => {
+    resetName();
+    resetAbout();
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onUpdateUser({
       name: name,
-      about: description,
-    });
+      about: about,
+    }, resetFields);
   }
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    setIsSubmitDisabled(!isValidName || !isValidAbout)
+  }, [isValidName, isValidAbout])
 
   return (
     <PopupWithForm
@@ -39,9 +56,10 @@ function EditProfilePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
+      isSubmitDisabled={isSubmitDisabled}
     >
       <input
-        className="form__input"
+        className={nameClassName}
         type="text"
         id="profile-name"
         aria-label="имя"
@@ -50,12 +68,16 @@ function EditProfilePopup(props) {
         required
         minLength="2"
         maxLength="40"
-        value={name || ""}
-        onChange={handleChangeName}
+        {...bindName}
       />
-      <span className='form__input-error' id='profile-name-error'></span>
+      <span
+        className={nameErrorClassName}
+        id='profile-name-error'
+      >
+        {nameValidationMessage}
+      </span>
       <input
-        className="form__input"
+        className={aboutClassName}
         type="text"
         id="profile-about"
         aria-label="подпись"
@@ -64,10 +86,14 @@ function EditProfilePopup(props) {
         required
         minLength="2"
         maxLength="200"
-        value={description || ""}
-        onChange={hanldeChangeDescription}
+        {...bindAbout}
       />
-      <span className='form__input-error' id='profile-about-error'></span>
+      <span
+        className={aboutErrorClassName}
+        id='profile-about-error'
+      >
+        {aboutValidationMessage}
+      </span>
     </PopupWithForm>
   )
 }
