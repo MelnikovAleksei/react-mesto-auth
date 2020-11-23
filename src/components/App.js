@@ -65,11 +65,12 @@ function App() {
       )
   }, [])
 
-  function handleAddPlaceSubmit(data) {
+  function handleAddPlaceSubmit(data, resetFieldsFn) {
     api.postCard(data)
       .then(
         (newCard) => {
           setCards([newCard, ...cards]);
+          resetFieldsFn();
           closeAllPopups();
         },
         (err) => {
@@ -78,11 +79,12 @@ function App() {
       )
   }
 
-  function handleUpdateAvatar(data) {
+  function handleUpdateAvatar(data, resetFieldsFn) {
     api.setUserAvatar(data)
       .then(
         (data) => {
           setCurrentUser(data);
+          resetFieldsFn();
           closeAllPopups();
         },
         (err) => {
@@ -91,11 +93,12 @@ function App() {
       )
   }
 
-  function handleUpdateUser(data) {
+  function handleUpdateUser(data, resetFieldsFn) {
     api.setUserInfo(data)
       .then(
         (data) => {
           setCurrentUser(data);
+          resetFieldsFn();
           closeAllPopups();
         },
         (err) => {
@@ -146,6 +149,7 @@ function App() {
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
+        currentUser={currentUser}
       />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
