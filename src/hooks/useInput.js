@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const useInput = (initialValue) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initialValue || '');
   const [validationMessage, setValidityMessage] = useState(value);
   const [isValid, setIsValid] = useState(false);
   const [inputClassName, setClassName] = useState('form__input');
@@ -11,7 +11,7 @@ export const useInput = (initialValue) => {
     value,
     setValue,
     reset: () => {
-      setValue("");
+      setValue('');
       setIsValid(false);
     },
     bind: {
