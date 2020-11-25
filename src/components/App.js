@@ -124,6 +124,20 @@ function App() {
     setSelectedCard({});
   }
 
+  React.useEffect(() => {
+    function handleEscapeClose(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups()
+      }
+    }
+
+    document.addEventListener('keyup', handleEscapeClose);
+
+    return () => {
+      document.removeEventListener('keyup', handleEscapeClose);
+    }
+  }, [])
+
   function handleCardClick(card) {
     setSelectedCard(card);
     setImagePopupOpen(true);
