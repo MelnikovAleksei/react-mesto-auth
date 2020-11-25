@@ -7,6 +7,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import ConfirmPopup from './ConfirmPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -17,6 +18,9 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+
+  const [cardForDelete, setCardForDelete] = React.useState({})
 
   const [selectedCard, setSelectedCard] = React.useState({});
 
@@ -38,12 +42,14 @@ function App() {
       )
   }
 
-  function handleCardDelete(card) {
-    api.deleteCard(card._id)
+  function handleCardDelete(evt) {
+    evt.preventDefault();
+    api.deleteCard(cardForDelete._id)
       .then(
         () => {
-          const newCards = cards.filter((elem) => elem !== card);
+          const newCards = cards.filter((elem) => elem !== cardForDelete);
           setCards(newCards);
+          closeAllPopups();
         },
         (err) => {
           console.log(err);
@@ -121,6 +127,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setImagePopupOpen(false);
+    setIsConfirmPopupOpen(false);
     setSelectedCard({});
   }
 
@@ -143,13 +150,18 @@ function App() {
     setImagePopupOpen(true);
   }
 
+  function handleCardDeleteRequest(card) {
+    setCardForDelete(card);
+    setIsConfirmPopupOpen(true);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Main
         cards={cards}
         onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
+        onCardDeleteRequest={handleCardDeleteRequest}
         onEditProfile={handleEditProfilePopupOpen}
         onAddPlace={handleAddPlacePopupOpen}
         onEditAvatar={handleEditAvatarPopupOpen}
@@ -171,15 +183,17 @@ function App() {
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
       />
-      <PopupWithForm
-        name="confirm"
-        title="Вы уверены?"
-        buttonText="Да"
-      />
       <ImagePopup
         isOpen={isImagePopupOpen}
         card={selectedCard}
         onClose={closeAllPopups}
+      />
+      <ConfirmPopup
+        isOpen={isConfirmPopupOpen}
+        onClose={closeAllPopups}
+        onSubmit={handleCardDelete}
+        title="Вы уверены?"
+        buttonText="Да"
       />
     </CurrentUserContext.Provider>
   );

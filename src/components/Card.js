@@ -19,8 +19,8 @@ function Card(props) {
     props.onCardLike(props.card)
   }
 
-  function handleCardDelete() {
-    props.onCardDelete(props.card)
+  function handleDeleteRequest() {
+    props.onCardDeleteRequest(props.card)
   }
 
   return (
@@ -29,7 +29,7 @@ function Card(props) {
         <img onClick={handleCardClick} alt={`Фотография ${props.card.name}`} src={props.card.link} className="photos__image" />
         <figcaption className="photos__figcaption">{props.card.name}</figcaption>
       </figure>
-      <button onClick={handleCardDelete} className={cardDeleteButtonClassName} aria-label="удалить фотографию"></button>
+      <button onClick={handleDeleteRequest} className={cardDeleteButtonClassName} aria-label="удалить фотографию"></button>
       <div className="photos__like-container">
         <button onClick={handleLikeClick} className={cardLikeButtonClassName} aria-label="поставить лайк"></button>
         <span className="photos__like-count">{props.card.likes.length}</span>
