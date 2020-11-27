@@ -27,16 +27,19 @@ function EditAvatarPopup(props) {
       name="avatar"
       title="Обновить аватар"
       buttonText="Сохранить"
+      loadingButtonText="Сохранение..."
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
       isDisabled={!isValid}
+      contentLabel="Форма редактирования аватара пользователя"
+      isLoadingData={props.isLoadingData}
     >
       <input
         className={errors.avatar ? 'form__input form__input_error' : 'form__input'}
         type="url"
         id="avatar-url"
-        aria-label="ссылка"
+        aria-label="ссылка на изображение"
         placeholder="Ссылка на картинку"
         name="avatar"
         required

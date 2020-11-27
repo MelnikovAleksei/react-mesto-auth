@@ -33,10 +33,13 @@ function EditProfilePopup(props) {
       name="profile"
       title="Редактировать профиль"
       buttonText="Сохранить"
+      loadingButtonText="Загрузка..."
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
       isDisabled={!isValid}
+      contentLabel="Форма форма редактирования профиля пользователя"
+      isLoadingData={props.isLoadingData}
     >
       <input
         className={errors.name ? 'form__input form__input_error' : 'form__input'}

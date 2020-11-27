@@ -1,24 +1,51 @@
 import React from 'react';
 
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root')
+
 function PopupWithForm(props) {
+
   return (
-    <div className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
-      <div className="popup__container">
-        <form
-          className="form"
-          name={props.name}
-          noValidate
-          onSubmit={props.onSubmit}
-        >
-        <h3 className="form__header">{props.title}</h3>
-          <fieldset className="form__fieldset">
-            {props.children}
-            <button disabled={props.isDisabled} type="submit" className="form__save-button">{props.buttonText}</button>
-          </fieldset>
-          <button onClick={props.onClose} type="button" className="popup__close-button" aria-label="закрыть форму"></button>
-        </form>
-      </div>
-    </div>
+    <Modal
+      isOpen={props.isOpen}
+      className="popup"
+      overlayClassName="popup__container"
+      contentLabel={props.contentLabel}
+      closeTimeoutMS={300}
+      aria={{
+        labelledby: "heading"
+      }}
+      onRequestClose={props.onClose}
+      shouldCloseOnOverlayClick={true}
+    >
+      <form
+        className="form"
+        name={props.name}
+        noValidate
+        onSubmit={props.onSubmit}
+      >
+      <h3 id="heading" className="form__header">{props.title}</h3>
+        <fieldset className="form__fieldset">
+          {props.children}
+          <button
+            disabled={props.isDisabled}
+            type="submit"
+            className={props.isDisabled ?
+              "form__save-button form__save-button_inactive"
+            :
+              "form__save-button"
+            }
+          >
+            {props.isLoadingData ?
+              props.loadingButtonText
+            :
+              props.buttonText}
+          </button>
+        </fieldset>
+        <button onClick={props.onClose} type="button" className="popup__close-button" aria-label="закрыть форму"></button>
+      </form>
+    </Modal>
   )
 }
 

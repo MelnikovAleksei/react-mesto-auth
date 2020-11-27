@@ -27,10 +27,13 @@ function AddPlacePopup(props) {
       name="photo"
       title="Новое место"
       buttonText="Создать"
+      loadingButtonText="Сохранение..."
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
       isDisabled={!isValid}
+      contentLabel="Форма добавления фотокарточки"
+      isLoadingData={props.isLoadingData}
     >
       <input
         className={errors.name ? 'form__input form__input_error' : 'form__input'}

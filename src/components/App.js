@@ -5,7 +5,6 @@ import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import ConfirmPopup from './ConfirmPopup';
 import api from '../utils/api';
@@ -20,7 +19,10 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
-  const [isLoadingData, setIsLoadingData] = React.useState(false);
+  const [isLoadingInitialData, setIsLoadingInitialData] = React.useState(false);
+  const [isLoadingSetUserInfo, setIsLoadingSetUserInfo] = React.useState(false);
+  const [isLoadingAddPlaceSubmit, setIsLoadingAddPlaceSubmit] = React.useState(false);
+  const [isLoadingAvatarUpdate, setIsLoadingAvatarUpdate] = React.useState(false);
 
   const [cardForDelete, setCardForDelete] = React.useState({})
 
@@ -60,7 +62,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    setIsLoadingData(true);
+    setIsLoadingInitialData(true);
     api.getInitialData()
       .then(
         (data) => {
@@ -73,11 +75,12 @@ function App() {
         }
       )
       .finally(() => {
-        setIsLoadingData(false);
+        setIsLoadingInitialData(false);
       })
   }, [])
 
   function handleAddPlaceSubmit(data) {
+    setIsLoadingAddPlaceSubmit(true);
     api.postCard(data)
       .then(
         (newCard) => {
@@ -88,9 +91,13 @@ function App() {
           console.log(err);
         }
       )
+      .finally(() => {
+        setIsLoadingAddPlaceSubmit(false);
+      })
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoadingAvatarUpdate(true);
     api.setUserAvatar(data)
       .then(
         (data) => {
@@ -101,9 +108,13 @@ function App() {
           console.log(err);
         }
       )
+      .finally(() => {
+        setIsLoadingAvatarUpdate(false);
+      })
   }
 
   function handleUpdateUser(data) {
+    setIsLoadingSetUserInfo(true);
     api.setUserInfo(data)
       .then(
         (data) => {
@@ -114,6 +125,9 @@ function App() {
           console.log(err);
         }
       )
+      .finally(() => {
+        setIsLoadingSetUserInfo(false)
+      })
   }
 
   function handleEditProfilePopupOpen() {
@@ -137,20 +151,6 @@ function App() {
     setSelectedCard({});
   }
 
-  React.useEffect(() => {
-    function handleEscapeClose(evt) {
-      if (evt.key === 'Escape') {
-        closeAllPopups()
-      }
-    }
-
-    document.addEventListener('keyup', handleEscapeClose);
-
-    return () => {
-      document.removeEventListener('keyup', handleEscapeClose);
-    }
-  }, [])
-
   function handleCardClick(card) {
     setSelectedCard(card);
     setImagePopupOpen(true);
@@ -172,7 +172,7 @@ function App() {
         onAddPlace={handleAddPlacePopupOpen}
         onEditAvatar={handleEditAvatarPopupOpen}
         onCardClick={handleCardClick}
-        isLoadingData={isLoadingData}
+        isLoadingData={isLoadingInitialData}
       />
       <Footer />
       <EditProfilePopup
@@ -180,16 +180,19 @@ function App() {
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
         currentUser={currentUser}
+        isLoadingData={isLoadingSetUserInfo}
       />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
+        isLoadingData={isLoadingAvatarUpdate}
       />
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
+        isLoadingData={isLoadingAddPlaceSubmit}
       />
       <ImagePopup
         isOpen={isImagePopupOpen}

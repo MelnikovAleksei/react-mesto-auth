@@ -11,7 +11,14 @@ function Main(props) {
         <section className="profile">
           <div className="profile__container-info">
             <div className="profile__container-avatar">
-              <img alt={`Аватар пользователя ${currentUser.name}`} src={currentUser.avatar} className="profile__avatar" />
+              <img
+                alt={props.isLoadingData ?
+                  "Аватар загружается..."
+                :
+                  `Аватар пользователя ${currentUser.name}`}
+                src={currentUser.avatar}
+                className="profile__avatar"
+              />
               <button
                 className="profile__avatar-edit-button"
                 aria-label="открыть форму обновления аватара профиля"
