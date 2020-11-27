@@ -20,8 +20,8 @@ function Main(props) {
             </div>
             <div className="profile__bio">
               <div className="profile__info">
-                <h1 className="profile__name">{currentUser.name}</h1>
-                <p className="profile__caption">{currentUser.about}</p>
+                <h1 className="profile__name">{props.isLoadingData ? 'Загрузка...' : currentUser.name}</h1>
+                <p className="profile__caption">{props.isLoadingData ? 'Загрузка...' : currentUser.about}</p>
               </div>
               <button
                 className="profile__edit-button button-open-form"
@@ -37,17 +37,25 @@ function Main(props) {
           />
         </section>
         <section className="photos">
-          <ul className="photos__list">
-            {props.cards.map(card =>
-              <Card
-                key={card._id}
-                card={card}
-                onCardClick={props.onCardClick}
-                onCardLike={props.onCardLike}
-                onCardDeleteRequest={props.onCardDeleteRequest}
-              />
-            )}
-          </ul>
+          {props.isLoadingData ?
+            <p
+              className="download-message"
+            >
+              Карточки с фотографиями загружаются...
+            </p>
+          :
+            <ul className="photos__list">
+              {props.cards.map(card =>
+                <Card
+                  key={card._id}
+                  card={card}
+                  onCardClick={props.onCardClick}
+                  onCardLike={props.onCardLike}
+                  onCardDeleteRequest={props.onCardDeleteRequest}
+                />
+              )}
+            </ul>
+          }
         </section>
       </main>
   )
