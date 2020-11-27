@@ -26,7 +26,7 @@ function EditProfilePopup(props) {
     if (currentUser) {
       resetForm(currentUser);
     }
-  }, [currentUser, resetForm]);
+  }, [currentUser, resetForm, props.isOpen]);
 
   return (
     <PopupWithForm
