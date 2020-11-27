@@ -65,12 +65,11 @@ function App() {
       )
   }, [])
 
-  function handleAddPlaceSubmit(data, resetFieldsFn) {
+  function handleAddPlaceSubmit(data) {
     api.postCard(data)
       .then(
         (newCard) => {
           setCards([newCard, ...cards]);
-          resetFieldsFn();
           closeAllPopups();
         },
         (err) => {
@@ -79,12 +78,11 @@ function App() {
       )
   }
 
-  function handleUpdateAvatar(data, resetFieldsFn) {
+  function handleUpdateAvatar(data) {
     api.setUserAvatar(data)
       .then(
         (data) => {
           setCurrentUser(data);
-          resetFieldsFn();
           closeAllPopups();
         },
         (err) => {
@@ -93,12 +91,11 @@ function App() {
       )
   }
 
-  function handleUpdateUser(data, resetFieldsFn) {
+  function handleUpdateUser(data) {
     api.setUserInfo(data)
       .then(
         (data) => {
           setCurrentUser(data);
-          resetFieldsFn();
           closeAllPopups();
         },
         (err) => {
