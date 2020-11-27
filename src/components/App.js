@@ -20,6 +20,8 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
+  const [isLoadingData, setIsLoadingData] = React.useState(false);
+
   const [cardForDelete, setCardForDelete] = React.useState({})
 
   const [selectedCard, setSelectedCard] = React.useState({});
@@ -58,6 +60,7 @@ function App() {
   }
 
   React.useEffect(() => {
+    setIsLoadingData(true);
     api.getInitialData()
       .then(
         (data) => {
@@ -69,6 +72,9 @@ function App() {
           console.log(err);
         }
       )
+      .finally(() => {
+        setIsLoadingData(false);
+      })
   }, [])
 
   function handleAddPlaceSubmit(data) {
@@ -166,6 +172,7 @@ function App() {
         onAddPlace={handleAddPlacePopupOpen}
         onEditAvatar={handleEditAvatarPopupOpen}
         onCardClick={handleCardClick}
+        isLoadingData={isLoadingData}
       />
       <Footer />
       <EditProfilePopup
