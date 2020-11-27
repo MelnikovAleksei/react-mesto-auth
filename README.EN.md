@@ -26,10 +26,8 @@
 * JavaScript (Asynchronous JS, OOP, Fetch API)
 * Webpack
 * React JS
-* ReactDOM && JSX
 * Functional Components
-* Parent/Child Components
-* State and Changing State (Hooks)
+* Client-side form validation (custom hook)
 
 ## Installation instructions:
 
@@ -48,9 +46,7 @@ npm start
 
 ## Future revisions of the project will include:
 
-* adding form validation using the ["Formik library"](https://formik.org/)
 * creating indicators of loading requests 
-* create a pop-up confirmation of deleting photo cards 
 
 ## Languages:
 
