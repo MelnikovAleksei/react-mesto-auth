@@ -1,38 +1,26 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-import { useInput } from '../hooks/useInput';
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
 function EditAvatarPopup(props) {
 
-  const avatarRef = React.useRef('');
-
   const {
-    value: link,
-    bind: bindLink,
-    reset: resetLink,
-    isValid: isValidLink,
-    validationMessage: linkValidationMessage,
-    inputClassName: linkClassName,
-    errorClassName: linkErrorClassName
-  } = useInput('');
-
-  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true)
-
-  const resetFields = () => {
-    resetLink();
-  }
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm
+  } = useFormWithValidation({});
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    }, resetFields);
+    props.onUpdateAvatar(values);
   }
 
   React.useEffect(() => {
-    setIsSubmitDisabled(!isValidLink)
-  }, [isValidLink])
+    resetForm();
+  }, [props.isOpen, resetForm])
 
   return (
     <PopupWithForm
@@ -42,26 +30,26 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
-      isSubmitDisabled={isSubmitDisabled}
+      isDisabled={!isValid}
     >
       <input
-        className={linkClassName}
+        className={errors.avatar ? 'form__input form__input_error' : 'form__input'}
         type="url"
         id="avatar-url"
         aria-label="ссылка"
         placeholder="Ссылка на картинку"
-        name="url"
+        name="avatar"
         required
-        ref={avatarRef}
-        {...bindLink}
+        value={values.avatar || ''}
+        onChange={handleChange}
       />
       <span
-        className={linkErrorClassName}
+        className={errors.avatar ? 'form__input-error form__input-error_active' : 'form__input-error'}
         id='avatar-url-error'
         role="status"
         aria-live="polite"
       >
-        {linkValidationMessage}
+        {errors.avatar}
       </span>
     </PopupWithForm>
   )

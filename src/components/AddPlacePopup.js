@@ -1,48 +1,26 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-import { useInput } from '../hooks/useInput';
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
 function AddPlacePopup(props) {
 
   const {
-    value: name,
-    bind: bindName,
-    reset: resetName,
-    isValid: isValidName,
-    validationMessage: nameValidationMessage,
-    inputClassName: nameClassName,
-    errorClassName: nameErrorClassName
-  } = useInput('');
-
-  const {
-    value: link,
-    bind: bindLink,
-    reset: resetLink,
-    isValid: isValidLink,
-    validationMessage: linkValidationMessage,
-    inputClassName: linkClassName,
-    errorClassName: linkErrorClassName
-  } = useInput('');
-
-  const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true)
-
-  const resetFields = () => {
-    resetName();
-    resetLink();
-  }
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm
+  } = useFormWithValidation({});
 
   function handleSubmit(evt) {
     evt.preventDefault(evt);
-    props.onAddPlace({
-      name: name,
-      link: link,
-    }, resetFields)
+    props.onAddPlace(values);
   }
 
   React.useEffect(() => {
-    setIsSubmitDisabled(!isValidName || !isValidLink)
-  }, [isValidName, isValidLink])
+    resetForm();
+  }, [props.isOpen, resetForm])
 
   return (
     <PopupWithForm
@@ -52,10 +30,10 @@ function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
-      isSubmitDisabled={isSubmitDisabled}
+      isDisabled={!isValid}
     >
       <input
-        className={nameClassName}
+        className={errors.name ? 'form__input form__input_error' : 'form__input'}
         type="text"
         id="photo-title"
         aria-label="подпись"
@@ -64,33 +42,35 @@ function AddPlacePopup(props) {
         required
         minLength="1"
         maxLength="30"
-        {...bindName}
+        value={values.name || ''}
+        onChange={handleChange}
       />
       <span
-        className={nameErrorClassName}
+        className={errors.name ? 'form__input-error form__input-error_active' : 'form__input-error'}
         id='photo-title-error'
         role="status"
         aria-live="polite"
       >
-        {nameValidationMessage}
+        {errors.name}
       </span>
       <input
-        className={linkClassName}
+        className={errors.link ? 'form__input form__input_error' : 'form__input'}
         type="url"
         id="photo-url"
         aria-label="ссылка"
         placeholder="Ссылка на картинку"
         name="link"
         required
-        {...bindLink}
+        value={values.link || ''}
+        onChange={handleChange}
       />
       <span
-        className={linkErrorClassName}
+        className={errors.link ? 'form__input-error form__input-error_active' : 'form__input-error'}
         id='photo-url-error'
         role="status"
         aria-live="polite"
       >
-        {linkValidationMessage}
+        {errors.link}
       </span>
     </PopupWithForm>
   )
