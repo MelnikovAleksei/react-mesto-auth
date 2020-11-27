@@ -1,16 +1,26 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
+
 function EditAvatarPopup(props) {
 
-  const avatarRef = React.useRef('');
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm
+  } = useFormWithValidation({});
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    });
+    props.onUpdateAvatar(values);
   }
+
+  React.useEffect(() => {
+    resetForm();
+  }, [props.isOpen, resetForm])
 
   return (
     <PopupWithForm
@@ -20,18 +30,27 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
+      isDisabled={!isValid}
     >
       <input
-        className="form__input"
+        className={errors.avatar ? 'form__input form__input_error' : 'form__input'}
         type="url"
         id="avatar-url"
         aria-label="ссылка"
         placeholder="Ссылка на картинку"
-        name="url"
+        name="avatar"
         required
-        ref={avatarRef}
+        value={values.avatar || ''}
+        onChange={handleChange}
       />
-      <span className='form__input-error' id='avatar-url-error' role="status" aria-live="polite"></span>
+      <span
+        className={errors.avatar ? 'form__input-error form__input-error_active' : 'form__input-error'}
+        id='avatar-url-error'
+        role="status"
+        aria-live="polite"
+      >
+        {errors.avatar}
+      </span>
     </PopupWithForm>
   )
 }

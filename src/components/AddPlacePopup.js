@@ -1,26 +1,26 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
+
 function AddPlacePopup(props) {
 
-  const [name, setName] = React.useState('');
-  const [link, setLink] = React.useState('');
-
-  function handleChangeName(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleChangeLink(evt) {
-    setLink(evt.target.value);
-  }
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm
+  } = useFormWithValidation({});
 
   function handleSubmit(evt) {
     evt.preventDefault(evt);
-    props.onAddPlace({
-      name: name,
-      link: link,
-    })
+    props.onAddPlace(values);
   }
+
+  React.useEffect(() => {
+    resetForm();
+  }, [props.isOpen, resetForm])
 
   return (
     <PopupWithForm
@@ -30,33 +30,48 @@ function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
+      isDisabled={!isValid}
     >
       <input
-        className="form__input"
+        className={errors.name ? 'form__input form__input_error' : 'form__input'}
         type="text"
         id="photo-title"
         aria-label="подпись"
         placeholder="Название"
-        name="title"
+        name="name"
         required
         minLength="1"
         maxLength="30"
-        value={name}
-        onChange={handleChangeName}
+        value={values.name || ''}
+        onChange={handleChange}
       />
-      <span className='form__input-error' id='photo-title-error' role="status" aria-live="polite"></span>
+      <span
+        className={errors.name ? 'form__input-error form__input-error_active' : 'form__input-error'}
+        id='photo-title-error'
+        role="status"
+        aria-live="polite"
+      >
+        {errors.name}
+      </span>
       <input
-        className="form__input"
+        className={errors.link ? 'form__input form__input_error' : 'form__input'}
         type="url"
         id="photo-url"
         aria-label="ссылка"
         placeholder="Ссылка на картинку"
-        name="url"
+        name="link"
         required
-        value={link}
-        onChange={handleChangeLink}
+        value={values.link || ''}
+        onChange={handleChange}
       />
-      <span className='form__input-error' id='photo-url-error' role="status" aria-live="polite"></span>
+      <span
+        className={errors.link ? 'form__input-error form__input-error_active' : 'form__input-error'}
+        id='photo-url-error'
+        role="status"
+        aria-live="polite"
+      >
+        {errors.link}
+      </span>
     </PopupWithForm>
   )
 }
