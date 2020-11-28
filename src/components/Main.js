@@ -11,14 +11,15 @@ function Main(props) {
         <section className="profile">
           <div className="profile__container-info">
             <div className="profile__container-avatar">
-              <img
-                alt={props.isLoadingData ?
-                  "Аватар загружается..."
-                :
-                  `Аватар пользователя ${currentUser.name}`}
-                src={currentUser.avatar}
-                className="profile__avatar"
-              />
+              {props.isLoadingInitialData ?
+                <p className="download-message">Загрузка...</p>
+              :
+                <img
+                  alt={`Аватар пользователя ${currentUser.name}`}
+                  src={currentUser.avatar}
+                  className="profile__avatar"
+                />
+              }
               <button
                 className="profile__avatar-edit-button"
                 aria-label="открыть форму обновления аватара профиля"
@@ -27,8 +28,8 @@ function Main(props) {
             </div>
             <div className="profile__bio">
               <div className="profile__info">
-                <h1 className="profile__name">{props.isLoadingData ? 'Загрузка...' : currentUser.name}</h1>
-                <p className="profile__caption">{props.isLoadingData ? 'Загрузка...' : currentUser.about}</p>
+                <h1 className="profile__name">{props.isLoadingInitialData ? 'Загрузка...' : currentUser.name}</h1>
+                <p className="profile__caption">{props.isLoadingInitialData ? 'Загрузка...' : currentUser.about}</p>
               </div>
               <button
                 className="profile__edit-button button-open-form"
@@ -44,7 +45,7 @@ function Main(props) {
           />
         </section>
         <section className="photos">
-          {props.isLoadingData ?
+          {props.isLoadingInitialData ?
             <p
               className="download-message"
             >

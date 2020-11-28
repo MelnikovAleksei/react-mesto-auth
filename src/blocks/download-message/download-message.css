@@ -1,9 +1,10 @@
 .download-message {
-  color: white;
+  margin: 0;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
-  font-weight: 500;
-  font-size: 42px;
-  line-height: 1.33;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #FFFFFF;
   text-align: center;
 }

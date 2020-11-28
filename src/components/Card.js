@@ -39,7 +39,11 @@ function Card(props) {
     <li className="photos__card">
       <figure className="photos__figure">
         <img tabIndex="0" onKeyDown={handleCardKeyDown} onClick={handleCardClick} alt={`Фотография ${props.card.name}`} src={props.card.link} className="photos__image" />
-        <figcaption className="photos__figcaption">{props.card.name}</figcaption>
+        <figcaption
+          className="photos__figcaption"
+        >
+          {props.card.name}
+        </figcaption>
       </figure>
       <button onClick={handleDeleteRequest} className={cardDeleteButtonClassName} aria-label="удалить фотографию"></button>
       <div className="photos__like-container">

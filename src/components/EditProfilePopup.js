@@ -51,7 +51,7 @@ function EditProfilePopup(props) {
         required
         minLength="2"
         maxLength="40"
-        value={values.name || ''}
+        value={props.isLoadingInitialData ? 'Загрузка...' : values.name || ''}
         onChange={handleChange}
       />
       <span
@@ -70,7 +70,7 @@ function EditProfilePopup(props) {
         required
         minLength="2"
         maxLength="200"
-        value={values.about || ''}
+        value={props.isLoadingInitialData ? 'Загрузка...' : values.about || ''}
         onChange={handleChange}
       />
       <span

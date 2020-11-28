@@ -172,7 +172,7 @@ function App() {
         onAddPlace={handleAddPlacePopupOpen}
         onEditAvatar={handleEditAvatarPopupOpen}
         onCardClick={handleCardClick}
-        isLoadingData={isLoadingInitialData}
+        isLoadingInitialData={isLoadingInitialData}
       />
       <Footer />
       <EditProfilePopup
@@ -181,6 +181,7 @@ function App() {
         onUpdateUser={handleUpdateUser}
         currentUser={currentUser}
         isLoadingData={isLoadingSetUserInfo}
+        isLoadingInitialData={isLoadingInitialData}
       />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
