@@ -26,7 +26,7 @@ function PopupWithForm(props) {
         onSubmit={props.onSubmit}
       >
       <h3 id="heading" className="form__header">{props.title}</h3>
-        <fieldset className="form__fieldset">
+
           {props.children}
           <button
             disabled={props.isDisabled}
@@ -42,7 +42,6 @@ function PopupWithForm(props) {
             :
               props.buttonText}
           </button>
-        </fieldset>
         <button onClick={props.onClose} type="button" className="popup__close-button" aria-label="закрыть форму"></button>
       </form>
     </Modal>

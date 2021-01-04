@@ -14,8 +14,6 @@
   transition: padding .3s ease;
 }
 
-
-
 @media screen and (max-width: 767px) {
   .form__input {
     width: 190px;

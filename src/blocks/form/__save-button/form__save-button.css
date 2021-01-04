@@ -17,7 +17,6 @@
   opacity: 1;
   transition: border .3s, background .3s, color .3s, opacity .3s ease;
   pointer-events: all;
-
 }
 
 .form__save-button:hover {

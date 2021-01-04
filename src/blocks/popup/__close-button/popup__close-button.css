@@ -2,8 +2,8 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  width: 40.7px;
-  height: 40.7px;
+  width: 40px;
+  height: 40px;
   background-image: url(../../../images/edit-form/edit-form-close-button.svg);
   background-position: center;
   background-color: #000000;
@@ -23,8 +23,8 @@
 
 @media screen and (max-width: 767px) {
   .popup__close-button {
-    width: 30.7px;
-    height: 30.7px;
+    width: 30px;
+    height: 30px;
   }
 }
 

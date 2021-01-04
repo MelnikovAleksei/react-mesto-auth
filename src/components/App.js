@@ -5,8 +5,11 @@ import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import InfoTooltip from './InfoTooltip';
 import ImagePopup from './ImagePopup';
 import ConfirmPopup from './ConfirmPopup';
+
+import Login from './Login';
 
 import ProtectedRoute from './ProtectedRoute';
 
@@ -15,6 +18,7 @@ import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 import { Route, Switch } from 'react-router-dom';
+import Register from './Register';
 
 
 function App() {
@@ -26,6 +30,7 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(true);
 
   const [isLoadingInitialData, setIsLoadingInitialData] = React.useState(false);
   const [isLoadingSetUserInfo, setIsLoadingSetUserInfo] = React.useState(false);
@@ -150,12 +155,17 @@ function App() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
+  function handleInfoTooltipPopupOpen() {
+    setIsInfoTooltipOpen(!isInfoTooltipOpen);
+  }
+
   function closeAllPopups() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setImagePopupOpen(false);
     setIsConfirmPopupOpen(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard({});
   }
 
@@ -174,10 +184,10 @@ function App() {
       <Header />
       <Switch>
         <Route path="/sign-up">
-
+          <Register />
         </Route>
         <Route path="/sign-in">
-
+          <Login />
         </Route>
         <ProtectedRoute
           path="/"
@@ -225,6 +235,11 @@ function App() {
         onSubmit={handleCardDelete}
         title="Вы уверены?"
         buttonText="Да"
+      />
+      <InfoTooltip
+        isOpen={isInfoTooltipOpen}
+        onClose={closeAllPopups}
+        isSuccess={true}
       />
     </CurrentUserContext.Provider>
   );
