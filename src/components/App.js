@@ -14,23 +14,26 @@ import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 
 import api from '../utils/api';
+import auth from '../utils/auth';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Register from './Register';
 
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  const [isSuccessSignUp, setIsSuccessSignUp] = React.useState(false);
 
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(true);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
 
   const [isLoadingInitialData, setIsLoadingInitialData] = React.useState(false);
   const [isLoadingSetUserInfo, setIsLoadingSetUserInfo] = React.useState(false);
@@ -43,7 +46,11 @@ function App() {
 
   const [currentUser, setCurrentUser] = React.useState({});
 
+  const [authorizationUserEmail, setAutorizationUserEmail] = React.useState(null);
+
   const [cards, setCards] = React.useState([]);
+
+  const history = useHistory();
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -181,20 +188,85 @@ function App() {
 
   function handleSingOut() {
     setLoggedIn(false);
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
   }
+
+  function handleRegistration(data) {
+    auth.register(data)
+      .then(
+        (data) => {
+          setIsSuccessSignUp(true);
+          handleInfoTooltipPopupOpen();
+          history.push('/sign-in')
+        },
+        (err) => {
+          console.log(err);
+          setIsSuccessSignUp(false);
+          handleInfoTooltipPopupOpen();
+        })
+  }
+
+  function handleAuthorization(data) {
+    auth.authorize(data)
+      .then(
+        (data) => {
+          setLoggedIn(true);
+          localStorage.setItem('jwt', data.token);
+          history.push('/');
+          handleCheckToken();
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+  }
+
+  const handleCheckToken = React.useCallback(
+    () => {
+      const token = localStorage.getItem('jwt');
+      auth.checkToken(token)
+        .then(
+          (data) => {
+            setAutorizationUserEmail(data.data.email);
+            setLoggedIn(true);
+            history.push('/');
+          },
+          (err) => {
+            console.log(err);
+          }
+        )
+
+    },
+    [history],
+  )
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('jwt');
+
+    if (token) {
+      handleCheckToken();
+    }
+  }, [handleCheckToken])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header
         loggedIn={loggedIn}
-        handleSingOut={handleSingOut}
+        onSingOut={handleSingOut}
+        authorizationUserEmail={authorizationUserEmail}
       />
       <Switch>
         <Route path="/sign-up">
-          <Register />
+          <Register
+            onRegistration={handleRegistration}
+          />
         </Route>
         <Route path="/sign-in">
-          <Login />
+          <Login
+            onAuthorization={handleAuthorization}
+            onCheckToken={handleCheckToken}
+          />
         </Route>
         <ProtectedRoute
           path="/"
@@ -246,7 +318,7 @@ function App() {
       <InfoTooltip
         isOpen={isInfoTooltipOpen}
         onClose={closeAllPopups}
-        isSuccess={true}
+        isSuccess={isSuccessSignUp}
       />
     </CurrentUserContext.Provider>
   );

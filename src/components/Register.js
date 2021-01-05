@@ -4,7 +4,7 @@ import Sign from './Sign';
 import { useFormWithValidation } from '../hooks/useFormWithValidation';
 import { Link } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({ onRegistration }) => {
 
   const linkMarkup = (
     <p
@@ -24,6 +24,7 @@ const Register = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    onRegistration(values);
     resetForm();
   }
 

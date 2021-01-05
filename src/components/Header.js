@@ -3,7 +3,7 @@ import logo from '../images/logo/mesto-logo.svg';
 
 import { NavLink, useLocation } from 'react-router-dom';
 
-function Header({ loggedIn, handleSingOut }) {
+function Header({ loggedIn, onSingOut, authorizationUserEmail }) {
 
   const location = useLocation();
 
@@ -15,8 +15,7 @@ function Header({ loggedIn, handleSingOut }) {
 
   function handleSignOut() {
     setMenuIsOpen(false);
-    handleSingOut();
-    alert('sign out');
+    onSingOut();
   }
 
   return (
@@ -29,7 +28,7 @@ function Header({ loggedIn, handleSingOut }) {
             <address
               className="header__address"
             >
-              email@mail.com
+              {authorizationUserEmail && authorizationUserEmail}
             </address>
             <button
               className="header__button"

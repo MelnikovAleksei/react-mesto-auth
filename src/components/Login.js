@@ -3,7 +3,7 @@ import Sign from './Sign';
 
 import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
-const Login = () => {
+const Login = ({ onAuthorization, onCheckToken }) => {
 
   const {
     values,
@@ -15,6 +15,7 @@ const Login = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    onAuthorization(values);
     resetForm();
   }
 
