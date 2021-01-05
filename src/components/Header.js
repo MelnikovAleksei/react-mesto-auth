@@ -1,10 +1,87 @@
 import React from 'react';
 import logo from '../images/logo/mesto-logo.svg';
 
-function Header() {
+import { NavLink, useLocation } from 'react-router-dom';
+
+function Header({ loggedIn, handleSingOut }) {
+
+  const location = useLocation();
+
+  const [menuIsOpen, setMenuIsOpen] = React.useState(false);
+
+  function handleToggleMenu() {
+    setMenuIsOpen(!menuIsOpen);
+  }
+
+  function handleSignOut() {
+    setMenuIsOpen(false);
+    handleSingOut();
+    alert('sign out');
+  }
+
   return (
-    <header className="header">
-      <img className="header__logo" src={logo} alt="логотип сайта" />
+    <header className={loggedIn ? 'header header_row-reverse' : 'header'}>
+      {loggedIn &&
+        (
+          <div
+            className={menuIsOpen ? 'header__container header__container_opened' : 'header__container'}
+          >
+            <address
+              className="header__address"
+            >
+              email@mail.com
+            </address>
+            <button
+              className="header__button"
+              type="button"
+              onClick={handleSignOut}
+            >
+              Выйти
+            </button>
+          </div>
+        )
+      }
+      <div
+        className="header__container-main"
+      >
+        <img className="header__logo" src={logo} alt="логотип сайта" />
+        {loggedIn &&
+          (
+            <button
+              className={menuIsOpen ? 'header__menu-button header__menu-button_opened' : 'header__menu-button'}
+              type="button"
+              aria-label="кнопка меню"
+              onClick={handleToggleMenu}
+            />
+          )
+        }
+        {!loggedIn &&
+          (<nav>
+            {location.pathname === '/sign-in' &&
+              (
+                <NavLink
+                  className="header__navlink"
+                  to="/sign-up"
+                >
+                  Регистрация
+                </NavLink>
+              )
+            }
+            {location.pathname === '/sign-up' &&
+              (
+                <NavLink
+                  className="header__navlink"
+                  to="/sign-in"
+                >
+                  Войти
+                </NavLink>
+              )
+            }
+          </nav>
+        )
+        }
+      </div>
+
     </header>
   )
 }

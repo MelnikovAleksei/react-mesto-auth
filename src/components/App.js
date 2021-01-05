@@ -23,7 +23,7 @@ import Register from './Register';
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
 
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
@@ -179,9 +179,16 @@ function App() {
     setIsConfirmPopupOpen(true);
   }
 
+  function handleSingOut() {
+    setLoggedIn(false);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header />
+      <Header
+        loggedIn={loggedIn}
+        handleSingOut={handleSingOut}
+      />
       <Switch>
         <Route path="/sign-up">
           <Register />
