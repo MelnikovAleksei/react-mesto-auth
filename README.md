@@ -2,16 +2,17 @@
 
 ## Создана в рамках учебы в [Яндекс.Практикум](https://praktikum.yandex.ru/) на курсе ["Веб-разработчик"](https://praktikum.yandex.ru/web/).
 
-*Read this in other languages:* [EN](https://github.com/MelnikovAleksei/mesto-react/blob/master/README.EN.md)
+*Read this in other languages:* [EN](https://github.com/MelnikovAleksei/react-mesto-auth/blob/main/README.EN.md)
 
 ## Описание:
 
 "Mesto" - это интерактивная страница, где пользователи могут делиться фотографиями. Она создана в рамках прохождения 4-11 спринтов курса. Данная работа переведена на фреймворк React. Ссылка на [репозиторий с версией проектной работы на Pure JS](https://github.com/MelnikovAleksei/mesto)
 
-[Проектная работа на GitHub Pages](https://melnikovaleksei.github.io/mesto-react/index.html)
+[Проектная работа на GitHub Pages](https://melnikovaleksei.github.io/react-mesto-auth)
 
 ## Функционал:
 
+* Авторизация и регистрация пользователей
 * Добавление и удаление фотографии
 * "Лайк" для фотографии
 * Редактирование профиля пользователя
@@ -38,7 +39,7 @@
 Клонировать репозиторий:
 
 `
-git clone https://github.com/MelnikovAleksei/mesto-react.git
+git clone https://github.com/MelnikovAleksei/react-mesto-auth.git
 `
 
 В директории проекта запустить приложение в режиме разработки:
@@ -50,7 +51,7 @@ npm start
 
 ## Будущая доработка проекта будет включать в себя:
 
-* создание сервера на Nodejs
+* [создание сервера на Nodejs](https://github.com/MelnikovAleksei/express-mesto)
 
 ## Языки:
 
@@ -67,6 +68,8 @@ npm start
 * [Макет 6-7](https://www.figma.com/file/qk3Axq4MZryPzGFfCnUnrP/sprint-6-mesto)
 * [Макет 9](https://www.figma.com/file/hhhIavVTeuilfPPZ6sbifl/JavaScript.-Sprint-9)
 
+* [Макет 14](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/Sprint-14-(RU)?node-id=0%3A1)
+
 ## Чеклисты проектной работы:
 
 * [Чеклист 4](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-4/index.html)
@@ -77,3 +80,5 @@ npm start
 * [Чеклист 9](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-9/index.html)
 * [Чеклист 10](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-10/index.html)
 * [Чеклист 11](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-11/index.html)
+
+* [Чеклист 14](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-14/index.html)
