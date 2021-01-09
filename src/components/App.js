@@ -214,7 +214,6 @@ function App() {
           setLoggedIn(true);
           localStorage.setItem('jwt', data.token);
           history.push('/');
-          handleCheckToken();
         },
         (err) => {
           console.log(err);
