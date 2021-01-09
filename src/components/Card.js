@@ -21,12 +21,6 @@ function Card(props) {
     props.onCardClick(props.card);
   }
 
-  function handleCardKeyDown(evt) {
-    if (evt.key === 'Enter') {
-      props.onCardClick(props.card);
-    }
-  }
-
   function handleLikeClick() {
     props.onCardLike(props.card);
   }
@@ -38,7 +32,7 @@ function Card(props) {
   return (
     <li className="photos__card">
       <figure className="photos__figure">
-        <img tabIndex="0" onKeyDown={handleCardKeyDown} onClick={handleCardClick} alt={`Фотография ${props.card.name}`} src={props.card.link} className="photos__image" />
+        <img tabIndex="0" onClick={handleCardClick} alt={`Фотография ${props.card.name}`} src={props.card.link} className="photos__image" />
         <figcaption
           className="photos__figcaption"
         >
